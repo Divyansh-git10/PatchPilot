@@ -37,25 +37,6 @@ This project was built as part of an Agentic AI take-home assignment focused on 
 
 ![Architecture](architecture.png)
 
-```
-GitHub Issue
-      ↓
-Issue Analyzer Agent
-      ↓
-Repository Mapper Agent
-      ↓
-Semantic Retrieval Layer
-      ↓
-Planner Agent
-      ↓
-Code Generation Agent
-      ↓
-Validation Agent
-      ↓
-PR Writer Agent
-```
-
----
 
 # 🤖 Agents
 
