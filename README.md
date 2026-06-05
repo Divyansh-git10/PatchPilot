@@ -35,6 +35,8 @@ This project was built as part of an Agentic AI take-home assignment focused on 
 
 # 🧠 System Architecture
 
+![Architecture](architecture.png)
+
 ```
 GitHub Issue
       ↓
