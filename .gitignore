@@ -3,4 +3,5 @@ venv/
 *.pyc
 .env
 outputs/
+!outputs/sample_run.txt
 repositories/
