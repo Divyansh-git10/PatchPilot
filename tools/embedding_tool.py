@@ -1,7 +1,12 @@
 import os
 
 class EmbeddingTool:
+    """Lightweight lexical / term-frequency (TF) retrieval over Go source files.
 
+    Despite the name, this does not use vector embeddings yet — it ranks
+    files by how often the query terms occur in them. Swapping in real
+    embeddings is on the roadmap (see README → Future Improvements).
+    """
 
     def __init__(self):
 
@@ -28,7 +33,7 @@ class EmbeddingTool:
 
                             self.file_paths.append(path)
 
-                    except:
+                    except Exception:
                         pass
 
     def search(self, query, top_k=5):

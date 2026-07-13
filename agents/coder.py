@@ -10,7 +10,7 @@ class CodeAgent:
             with open(file_path, "r", encoding="utf-8") as f:
                 return f.read()
 
-        except:
+        except Exception:
             return ""
 
     def generate_patch(

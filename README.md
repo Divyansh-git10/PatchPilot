@@ -2,9 +2,11 @@
 
 PatchPilot is an agentic AI framework designed to assist with solving issues in open-source Go repositories.
 
-The system analyzes GitHub issues, understands repository structure, retrieves relevant code context, generates engineering plans, proposes code patches, validates changes using real Go tests, and creates professional pull request summaries.
+The system analyzes GitHub issues, understands repository structure, retrieves relevant code context, generates engineering plans, proposes code patches, runs the repository's Go test suite (`go test ./...`) as a validation harness, and drafts professional pull request summaries.
 
-This project was built as part of an Agentic AI take-home assignment focused on repository-aware autonomous software engineering workflows.
+This project demonstrates repository-aware, multi-agent software-engineering workflows.
+
+> **Scope & current limitations (by design):** PatchPilot is a focused demonstration, not a fully autonomous agent. Generated patches are *suggestions* — they are not auto-applied, so the Go test run establishes the repository's baseline test state rather than testing the patch itself. Code retrieval is lightweight lexical / term-frequency (TF) matching (vector embeddings are on the roadmap). Currently exercised against `spf13/cobra`.
 
 ---
 
@@ -13,10 +15,10 @@ This project was built as part of an Agentic AI take-home assignment focused on 
 * GitHub issue understanding using LLM reasoning
 * Repository-aware code analysis
 * Relevant Go file identification
-* Lightweight semantic code retrieval
+* Lightweight lexical / term-frequency (TF) code retrieval
 * Engineering planning agent
 * Repository-aware code patch generation
-* Real Go repository validation (`go test ./...`)
+* Go test-suite validation harness (`go test ./...`)
 * Automated pull request summary generation
 * Modular multi-agent architecture
 
@@ -36,6 +38,27 @@ This project was built as part of an Agentic AI take-home assignment focused on 
 # 🧠 System Architecture
 
 ![Architecture](architecture.png)
+
+
+```
+GitHub Issue
+      ↓
+Issue Analyzer Agent
+      ↓
+Repository Mapper Agent
+      ↓
+Lexical / TF Retrieval Layer
+      ↓
+Planner Agent
+      ↓
+Code Generation Agent
+      ↓
+Validation Agent
+      ↓
+PR Writer Agent
+```
+
+---
 
 
 # 🤖 Agents
@@ -61,9 +84,9 @@ Scans Go repositories and identifies:
 
 ---
 
-## 3. Semantic Retrieval Layer
+## 3. Lexical / TF Retrieval Layer
 
-Performs lightweight semantic-style retrieval across repository code to surface relevant files for the issue context.
+Performs lightweight lexical / term-frequency (TF) retrieval across repository code to surface relevant files for the issue context. (Vector embeddings are planned — see Future Improvements.)
 
 ---
 
@@ -97,7 +120,7 @@ Runs:
 go test ./...
 ```
 
-against the repository to validate generated changes.
+against the target repository to establish its baseline test state. Generated patches are surfaced as suggestions and are not auto-applied — applying them and re-running tests is future work.
 
 ---
 
@@ -281,7 +304,7 @@ Validation results are surfaced transparently, including:
 
 ## Lightweight Retrieval
 
-A lightweight semantic-style retrieval approach was used to keep the framework fast, portable, and easy to run locally.
+A lightweight lexical / term-frequency (TF) retrieval approach was used to keep the framework fast, portable, and dependency-light. Upgrading to vector embeddings is on the roadmap.
 
 ## Modular Agent Architecture
 
